@@ -4,6 +4,7 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> vertexList)
 {
 	m_fRadius = 0.0f;
 	m_v3CenterGlobal = vector3(0.0f);
+	bool m_bColliding = false;
 
 	if (vertexList.size() < 1)
 		return;
@@ -50,12 +51,31 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> vertexList)
 
 void MyBoundingSphereClass::RenderSphere()
 {
+	vector3 v3Color = REGREEN;
+	if (m_bColliding)
+	{
+		v3Color = RERED;
+	}
 	m_pMeshMngr->AddSphereToRenderList(
 		glm::translate(m_v3CenterGlobal) *
-		glm::scale(vector3(m_fRadius) * 2.0f), RERED, WIRE);
+		glm::scale(vector3(m_fRadius) * 2.0f), v3Color, WIRE);
 }
 void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld)
 {
 	m_m4ToWorld = a_m4ToWorld;
 	m_v3CenterGlobal = vector3(m_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
+}
+
+bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* other)
+{
+	float fDistance = glm::distance(this->m_v3CenterGlobal, other->m_v3CenterGlobal);
+	float fRadiiSum = this->m_fRadius + other->m_fRadius;
+	if (fDistance < fRadiiSum)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

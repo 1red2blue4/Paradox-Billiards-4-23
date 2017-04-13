@@ -13,7 +13,13 @@ void AppClass::InitVariables(void)
 		REAXISY);//What is up
 	//Load a model onto the Mesh manager
 	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "Zombie");
+	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
+	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 	m_pBS0 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Zombie"));
+	m_pBS1 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Steve"));
+	m_pBS2 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Cow"));
+
+	
 }
 
 void AppClass::Update(void)
@@ -31,10 +37,31 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
+	matrix4 m4Position = glm::translate(vector3(3.0f, 0.0f, 0.0f));
+	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");
+	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
+
+	matrix4 m4Position2 = glm::translate(vector3(0.0f, 3.0f, 0.0f));
+	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
+	m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
+
+	if (m_pBS0->IsColliding(m_pBS1))
+	{
+		m_pBS0->m_bColliding = true;
+		m_pBS1->m_bColliding = true;
+	}
+	else
+	{
+		m_pBS0->m_bColliding = false;
+		m_pBS1->m_bColliding = false;
+	}
+
 	//set the translate to create the transform matrix
 	matrix4 m4Translate = glm::translate(m_v3Position);
 	m_pMeshMngr->SetModelMatrix(m4Translate, "Zombie"); //set the matrix to the model
 	m_pBS0->RenderSphere();//render the bounding sphere
+	m_pBS1->RenderSphere();
+	m_pBS2->RenderSphere();
 
 
 	//Adds all loaded instance to the render list
