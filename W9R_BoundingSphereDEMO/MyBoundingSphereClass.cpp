@@ -52,20 +52,17 @@ MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> vertexList)
 
 void MyBoundingSphereClass::RenderSphere()
 {
-	vector3 v3Color = REGREEN;
-<<<<<<< HEAD
+	m_v3Color = REGREEN;
 	if (m_bColliding)
 	{
-		v3Color = RERED;
+		m_v3Color = RERED;
 	}
-=======
 	if (true == m_bColliding)
-		v3Color = RERED;
+		m_v3Color = RERED;
 
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
 	m_pMeshMngr->AddSphereToRenderList(
 		glm::translate(m_v3CenterGlobal) *
-		glm::scale(vector3(m_fRadius) * 2.0f), v3Color, WIRE);
+		glm::scale(vector3(m_fRadius) * 2.0f), m_v3Color, WIRE);
 }
 void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld)
 {
@@ -76,7 +73,6 @@ void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld)
 	m_v3CenterGlobal = vector3(m_m4ToWorld * vector4(m_v3CenterLocal, 1.0f));
 }
 
-<<<<<<< HEAD
 bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* other)
 {
 	float fDistance = glm::distance(this->m_v3CenterGlobal, other->m_v3CenterGlobal);
@@ -90,13 +86,6 @@ bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* other)
 		return false;
 	}
 }
-=======
-bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* a_other)
-{
-	float fDistance = glm::distance(this->m_v3CenterGlobal, a_other->m_v3CenterGlobal);
-	float fRadiiSum = this->m_fRadius + a_other->m_fRadius;
-	return fDistance < fRadiiSum;
-}
 
 void MyBoundingSphereClass::SetColliding(bool input) { m_bColliding = input; }
 void MyBoundingSphereClass::SetCenterLocal(vector3 input) { m_v3CenterLocal = input; }
@@ -107,4 +96,7 @@ vector3 MyBoundingSphereClass::GetCenterLocal(void) { return m_v3CenterLocal; }
 vector3 MyBoundingSphereClass::GetCenterGlobal(void) { return m_v3CenterGlobal; }
 float MyBoundingSphereClass::GetRadius(void) { return m_fRadius; }
 matrix4 MyBoundingSphereClass::GetModelMatrix(void) { return m_m4ToWorld; }
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
+vector3 MyBoundingSphereClass::GetColor(void) { return m_v3Color; }
+void MyBoundingSphereClass::SetColor(vector3 input) { m_v3Color = input; }
+bool MyBoundingSphereClass::GetVisibility(void) { return visible; }
+void MyBoundingSphereClass::SetVisibility(bool input) { visible = input; }

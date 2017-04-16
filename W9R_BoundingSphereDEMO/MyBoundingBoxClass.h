@@ -1,21 +1,45 @@
 #pragma once
 #include "RE\ReEng.h"
 
-class MyBoundingSphereClass
+class MyBoundingBoxClass
 {
+
 private:
-	float m_fRadius = 0.0f; //radius of the sphere
-	vector3 m_v3CenterLocal = vector3(0.0f); //center of the sphere in local space
+	//float m_fRadius = 0.0f; //radius of the sphere
+	vector3 m_v3CenterLocal = vector3(0.0f); //center of the sphere in local 
+	vector3 m_v3CenterNewLocal = vector3(0.0f);
 	vector3 m_v3CenterGlobal = vector3(0.0f); //center of the sphere in global space
 	matrix4 m_m4ToWorld = IDENTITY_M4; //matrix that takes you from local to global space
+	matrix4 m_m4ToNewWorld = IDENTITY_M4;
 	MeshManagerSingleton* m_pMeshMngr = nullptr; //for drawing the sphere
+
+	vector3 m_v3Size = vector3(0.0f);
+	vector3 m_v3NewSize = vector3(0.0f);
+	vector3 m_v3Min = vector3(0.0f);
+	vector3 m_v3Max = vector3(0.0f);
+	vector3 m_v3NewMin = vector3(0.0f);
+	vector3 m_v3NewMax = vector3(0.0f);
+	vector3 m_v3MinGlobal = vector3(0.0f);
+	vector3 m_v3MaxGlobal = vector3(0.0f);
+	bool m_bColliding = false;
+
 	vector3 m_v3Color = vector3(0.0f);
+
+	vector3 m_vOrthoMax = vector3(0.0f);
+	vector3 m_vOrthoMin = vector3(0.0f);
+
+	quaternion tempRot = quaternion();
+
+	vector3 m_v3CenterNewGlobal = vector3(0.0f);
+	vector3 m_v3MinNewGlobal = vector3(0.0f);
+	vector3 m_v3MaxNewGlobal = vector3(0.0f);
+
 	bool visible = true;
-	
 
 public:
 
-	bool m_bColliding = false;
+
+	void FindOrthoBox(quaternion rotationArc);
 
 	/*
 	Sets Colliding
@@ -29,16 +53,6 @@ public:
 	Sets Center of the sphere in global space
 	*/
 	void SetCenterGlobal(vector3 input);
-	/*
-	Sets the radius of the sphere
-	*/
-	void SetRadius(float input);
-
-	/*
-	Get and set visibility
-	*/
-	bool GetVisibility(void);
-	void SetVisibility(bool input);
 
 	/*
 	Gets Colliding
@@ -56,22 +70,32 @@ public:
 	Gets model to world matrix of the sphere
 	*/
 	matrix4 GetModelMatrix(void);
-	/*
-	Gets radius of the sphere
-	*/
-	float GetRadius(void);
 
+	/*
+	Get the min and max global values
+	*/
+	vector3 GetMinGlobal(void);
+	vector3 GetMaxGlobal(void);
+	/*
+	Get and set the colors
+	*/
 	vector3 GetColor(void);
 	void SetColor(vector3 input);
-	
+
+	/*
+	Get and set visibility
+	*/
+	bool GetVisibility(void);
+	void SetVisibility(bool input);
+
 	/*
 	Constructor, needs a vertex list
 	*/
-	MyBoundingSphereClass(std::vector<vector3> vertexList);
+	MyBoundingBoxClass(std::vector<vector3> vertexList);
 	/*
 	Renders the sphere based on the radius and the center in global space
 	*/
-	void RenderSphere();
+	void Render();
 	/*
 	Sets the transform from the local to world matrix
 	*/
@@ -79,5 +103,5 @@ public:
 	/*
 	Will check the collision with another object
 	*/
-	bool IsColliding(MyBoundingSphereClass* a_other);
+	bool IsColliding(MyBoundingBoxClass* a_other);
 };

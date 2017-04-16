@@ -15,23 +15,18 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "Zombie");
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
-<<<<<<< HEAD
-=======
-	//creating bounding spheres for both models
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
-	m_pBS0 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Zombie"));
-	m_pBS1 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Steve"));
-	m_pBS2 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Cow"));
 
-<<<<<<< HEAD
-	
-=======
+	//creating bounding spheres for both models
+	m_pBS0 = new MyBoundingObjectClass(m_pMeshMngr->GetVertexList("Zombie"));
+	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Steve"));
+	m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
+	m_pBSTest = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Zombie"));
+
 	matrix4 m4Position = glm::translate(vector3(3.0, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");
 
 	matrix4 m4Position2 = glm::translate(vector3(2.5, 2.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
 }
 
 void AppClass::Update(void)
@@ -49,7 +44,6 @@ void AppClass::Update(void)
 	//Call the arcball method
 	ArcBall();
 
-<<<<<<< HEAD
 	matrix4 m4Position = glm::translate(vector3(3.0f, 0.0f, 0.0f));
 	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");
 	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
@@ -58,17 +52,6 @@ void AppClass::Update(void)
 	m_pMeshMngr->SetModelMatrix(m4Position2, "Cow");
 	m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
 
-	if (m_pBS0->IsColliding(m_pBS1))
-	{
-		m_pBS0->m_bColliding = true;
-		m_pBS1->m_bColliding = true;
-	}
-	else
-	{
-		m_pBS0->m_bColliding = false;
-		m_pBS1->m_bColliding = false;
-	}
-=======
 	//Object Movement
 	static float fTimer = 0.0f;
 	static int nClock = m_pSystem->GenClock();
@@ -79,38 +62,39 @@ void AppClass::Update(void)
 	float fPercentage = MapValue(fTimer, 0.0f, 3.0f, 0.0f, 1.0f);
 	vector3 v3Current = glm::lerp(v3Start, v3End, fPercentage);
 	matrix4 mTranslation = glm::translate(v3Current);
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
+
+	
 
 	//set the translate to create the transform matrix
 	matrix4 m4Transform = glm::translate(m_v3Position) * ToMatrix4(m_qArcBall);
+	matrix4 m4JustRotation = ToMatrix4(m_qArcBall);
+	matrix4 m4NoRotTransform = glm::translate(m_v3Position);
 	m_pMeshMngr->SetModelMatrix(m4Transform, "Zombie"); //set the matrix to the model
 	m_pBS0->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Zombie"));
-	m_pBS0->RenderSphere();//render the bounding sphere
-<<<<<<< HEAD
-	m_pBS1->RenderSphere();
-	m_pBS2->RenderSphere();
-=======
+	m_pBS0->GetBoundingBox()->FindOrthoBox(m_qArcBall);
+	m_pBS0->Render();//render the bounding sphere
+
 		
 
 	m_pMeshMngr->SetModelMatrix(mTranslation, "Steve");
 	m_pBS1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
-	m_pBS1->RenderSphere();
+	m_pBS1->Render();
 
 	m_pBS2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Cow"));
-	m_pBS2->RenderSphere();
+	m_pBS2->Render();
 
-	m_pBS0->SetColliding(false);
+	m_pBS0->GetBoundingBox()->SetColliding(false);
 	m_pBS1->SetColliding(false);
 	m_pBS2->SetColliding(false);
 
-	if (m_pBS0->IsColliding(m_pBS1))
+	if (m_pBS0->GetBoundingBox()->IsColliding(m_pBS1))
 	{
-		m_pBS0->SetColliding(true);
+		m_pBS0->GetBoundingBox()->SetColliding(true);
 		m_pBS1->SetColliding(true);
 	}
-	if (m_pBS0->IsColliding(m_pBS2))
+	if (m_pBS0->GetBoundingBox()->IsColliding(m_pBS2))
 	{
-		m_pBS0->SetColliding(true);
+		m_pBS0->GetBoundingBox()->SetColliding(true);
 		m_pBS2->SetColliding(true);
 	}
 	if (m_pBS1->IsColliding(m_pBS2))
@@ -118,7 +102,6 @@ void AppClass::Update(void)
 		m_pBS1->SetColliding(true);
 		m_pBS2->SetColliding(true);
 	}
->>>>>>> 53d98d80ff1895dbe81dd532db734594399fa723
 
 	if (fPercentage > 1.0f)
 	{
@@ -138,8 +121,6 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("");//Add a line on top
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
 
-	m_pMeshMngr->Print("Radius: ");
-	m_pMeshMngr->PrintLine(std::to_string(m_pBS0->GetRadius()), RERED);
 	m_pMeshMngr->Print("Center: (");
 	m_pMeshMngr->Print(std::to_string(m_pBS0->GetCenterGlobal().x), RERED);
 	m_pMeshMngr->Print(" , ");
