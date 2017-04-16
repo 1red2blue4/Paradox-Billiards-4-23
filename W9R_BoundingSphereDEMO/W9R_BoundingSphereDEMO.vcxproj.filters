@@ -30,12 +30,15 @@
     <ClCompile Include="MyBoundingBoxClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="MyBoundingObjectClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BoundingObjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppClass.h">
@@ -50,12 +53,15 @@
     <ClInclude Include="MyBoundingBoxClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="MyBoundingObjectClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BoundingObjectManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\res\BTO.rc">

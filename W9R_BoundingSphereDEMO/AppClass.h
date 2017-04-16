@@ -9,17 +9,26 @@ Date: 2015/09 (Last Modified on: 15/11)
 #include <SFML\Graphics.hpp>
 #include "MyBoundingSphereClass.h"
 #include "MyBoundingBoxClass.h"
+<<<<<<< HEAD
 #include "MyBoundingObjectClass.h"
+=======
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
 	vector3 m_v3Position;
+<<<<<<< HEAD
 	MyBoundingObjectClass* m_pBS0;
 	MyBoundingBoxClass* m_pBS1;
 	MyBoundingBoxClass* m_pBS2;
 	MyBoundingBoxClass* m_pBSTest;
+=======
+	MyBoundingBoxClass* m_pBS0;
+	MyBoundingBoxClass* m_pBS1;
+	MyBoundingBoxClass* m_pBS2;
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 public:
 	typedef ReEngAppClass super;
 	/*

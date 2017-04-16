@@ -17,10 +17,16 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Cow.obj", "Cow");
 
 	//creating bounding spheres for both models
+<<<<<<< HEAD
 	m_pBS0 = new MyBoundingObjectClass(m_pMeshMngr->GetVertexList("Zombie"));
 	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Steve"));
 	m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
 	m_pBSTest = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Zombie"));
+=======
+	m_pBS0 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Zombie"));
+	m_pBS1 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Steve"));
+	m_pBS2 = new MyBoundingBoxClass(m_pMeshMngr->GetVertexList("Cow"));
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 
 	matrix4 m4Position = glm::translate(vector3(3.0, 0.0, 0.0));
 	m_pMeshMngr->SetModelMatrix(m4Position, "Steve");

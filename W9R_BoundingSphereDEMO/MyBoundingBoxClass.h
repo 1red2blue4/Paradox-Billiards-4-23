@@ -3,6 +3,7 @@
 
 class MyBoundingBoxClass
 {
+<<<<<<< HEAD
 
 private:
 	//float m_fRadius = 0.0f; //radius of the sphere
@@ -41,6 +42,24 @@ public:
 
 	void FindOrthoBox(quaternion rotationArc);
 
+=======
+private:
+	float m_fRadius = 0.0f; //radius of the sphere
+	vector3 m_v3CenterLocal = vector3(0.0f); //center of the sphere in local space
+	vector3 m_v3CenterGlobal = vector3(0.0f); //center of the sphere in global space
+	matrix4 m_m4ToWorld = IDENTITY_M4; //matrix that takes you from local to global space
+	MeshManagerSingleton* m_pMeshMngr = nullptr; //for drawing the sphere
+	bool m_bColliding = false;
+
+	vector3 m_v3Max;
+	vector3 m_v3Min;
+	vector3 m_v3Size;
+
+	vector3 m_v3MaxG;
+	vector3 m_v3MinG;
+	vector3 m_v3SizeG;
+public:
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	/*
 	Sets Colliding
 	*/
@@ -53,6 +72,13 @@ public:
 	Sets Center of the sphere in global space
 	*/
 	void SetCenterGlobal(vector3 input);
+<<<<<<< HEAD
+=======
+	/*
+	Sets the radius of the sphere
+	*/
+	void SetRadius(float input);
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 
 	/*
 	Gets Colliding
@@ -70,6 +96,7 @@ public:
 	Gets model to world matrix of the sphere
 	*/
 	matrix4 GetModelMatrix(void);
+<<<<<<< HEAD
 
 	/*
 	Get the min and max global values
@@ -88,6 +115,13 @@ public:
 	bool GetVisibility(void);
 	void SetVisibility(bool input);
 
+=======
+	/*
+	Gets radius of the sphere
+	*/
+	float GetRadius(void);
+	
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	/*
 	Constructor, needs a vertex list
 	*/
@@ -95,11 +129,19 @@ public:
 	/*
 	Renders the sphere based on the radius and the center in global space
 	*/
+<<<<<<< HEAD
 	void Render();
+=======
+	void RenderSphere();
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	/*
 	Sets the transform from the local to world matrix
 	*/
 	void SetModelMatrix(matrix4 a_m4ToWorld);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1916e612cfe8ad2068b2a3999ca9918819abc11a
 	/*
 	Will check the collision with another object
 	*/
