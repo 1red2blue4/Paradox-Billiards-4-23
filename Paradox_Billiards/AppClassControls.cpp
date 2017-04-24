@@ -177,8 +177,8 @@ void AppClass::ProcessMouse(void)
 		}
 	}
 	
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-		m_bArcBall = true;
+	//if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	//	m_bArcBall = true;
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		m_bFPC = true;

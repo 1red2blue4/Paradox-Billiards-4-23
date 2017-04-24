@@ -12,10 +12,10 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 0.0f, 0.0f),//What Im looking at
 		REAXISY);//What is up
 	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("media\\models\\table_with_colors.obj", "table1");
-	m_pMeshMngr->LoadModel("media\\models\\table_with_colors.obj", "table2");
-	m_pMeshMngr->LoadModel("media\\models\\table_with_colors.obj", "table3");
-	m_pMeshMngr->LoadModel("media\\models\\table_with_colors.obj", "table4");
+	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "table1");
+	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "table2");
+	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "table3");
+	m_pMeshMngr->LoadModel("Minecraft\\Zombie.obj", "table4");
 
 	m_boMngr = BoundingObjectManager::GetInstance();
 
@@ -70,7 +70,7 @@ void AppClass::Update(void)
 	}
 	else
 	{
-		m_pMeshMngr->AddSkyboxToRenderList("barPh.png");
+		m_pMeshMngr->AddSkyboxToRenderList("barPh.jpg");
 	}
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -83,8 +83,9 @@ void AppClass::Update(void)
 
 	
 		m_pMeshMngr->Print("I,O,P: Rotate tables");
-		m_pMeshMngr->Print("J,K,L: Rotation Chaos");
-		m_pMeshMngr->Print("\nW, A, S, D, Q, E: Move camera");
+		m_pMeshMngr->Print(" - J,K,L: Rotation Chaos");
+		m_pMeshMngr->Print("\nW, A, S, D: Move camera");
+		m_pMeshMngr->Print("\nQ, E: Move camera vertically");
 		m_pMeshMngr->Print("\nRight click: Aim camera");
 		m_pMeshMngr->Print("\nR: Reset tables");
 		m_pMeshMngr->Print("\nB: Toggle background");
